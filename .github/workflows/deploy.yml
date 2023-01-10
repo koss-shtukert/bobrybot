@@ -74,7 +74,7 @@ jobs:
           # https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
           # push to both docker hub and Github Container Registry
           images: |
-            ${{ env.FULL_IMAGE_NAME }}
+            ${{ secrets.DOCKER_USERNAME }}/bobrybot
             ${{ env.GH_REGISTRY }}/${{ env.FULL_IMAGE_NAME }}
           tags: |
             type=semver,pattern={{version}}
@@ -91,8 +91,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          secrets: |
-            GIT_AUTH_TOKEN=${{ github.token }}
           build-args: |
             MY_VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
             MY_BUILTBY=github-action
