@@ -2,12 +2,10 @@ name: deploy
 
 on:
   push:
-    branches: ['master']
-    tags: ['v*']
-  pull_request:
-    branches: ['master']
+    tags: ['v*.*.']
 
 env:
+  GH_REGISTRY: ghcr.io # Github registry
   FULL_IMAGE_NAME: ${{ github.repository }} # full image name: owner/image
   IMAGE_NAME: bobrybot # image name: image
 
@@ -41,7 +39,7 @@ jobs:
       - name: Log in to the Github
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.GH_REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ github.token }}
 
@@ -52,7 +50,7 @@ jobs:
         with:
           images: |
             ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
-            ${{ env.FULL_IMAGE_NAME }}
+            ${{ env.GH_REGISTRY }}/${{ env.FULL_IMAGE_NAME }}
           tags: |
             type=semver,pattern={{major}}.{{minor}}
             type=ref,event=pr
