@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  bot:
+  bobrybot:
     build:
       context: .
       dockerfile: Dockerfile
