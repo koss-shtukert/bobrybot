@@ -55,7 +55,6 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
 
       # Build image and push to registries (Dockerhub and Github)
       - name: Build and push docker image
