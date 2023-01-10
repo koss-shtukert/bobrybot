@@ -52,9 +52,12 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}
             ${{ env.GH_REGISTRY }}/${{ env.FULL_IMAGE_NAME }}
           tags: |
-            type=semver,pattern={{major}}.{{minor}}
-            type=ref,event=pr
             type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
 
       # Build image and push to registries (Dockerhub and Github)
       - name: Build and push docker image
