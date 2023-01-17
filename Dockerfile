@@ -25,4 +25,6 @@ RUN apt update -y \
     ca-certificates \
     && update-ca-certificates 2>/dev/null || true
 
+EXPOSE 80
+
 CMD ["/app/bin/main"]
