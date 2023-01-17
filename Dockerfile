@@ -20,4 +20,10 @@ COPY --from=builder /bin/main /app/bin/main
 
 RUN chmod +x /app/bin/main
 
+RUN apt update \
+    && apt upgrade \
+    && apt add --no-cache \
+    ca-certificates \
+    && update-ca-certificates 2>/dev/null || true
+
 CMD ["/app/bin/main"]
